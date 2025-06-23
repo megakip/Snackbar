@@ -36,12 +36,12 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
 
   return (
     <Card className="w-full bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200">
-      <CardContent className="p-4">
-        <div className="flex items-center gap-4">
+      <CardContent className="p-0">
+        <div className="flex items-center w-full">
           {/* Product Image - Left */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 w-[71px] h-[76px] flex items-center justify-center">
             <img
-              className="w-16 h-16 object-cover rounded"
+              className="w-[72px] h-[48px] object-cover rounded"
               alt={item.name}
               src={item.image_url || '/image.png'}
               onError={(e) => {
@@ -51,60 +51,68 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
             />
           </div>
 
-          {/* Product Info - Middle */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start gap-2 mb-1">
-              <h3 className="font-medium text-black text-base leading-tight">
-                {translateMenuItem(language, item.name)}
-              </h3>
-              {item.is_vegetarian && (
-                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full flex-shrink-0">
-                  {getTranslation(language, 'vegetarian').charAt(0)}
-                </span>
-              )}
-            </div>
-            <p className="font-semibold text-black text-lg">
-              €{item.price.toFixed(2)}
-            </p>
-          </div>
+          {/* Main Content - Middle and Right */}
+          <div className="flex-1 flex items-center justify-between px-4 py-4">
+            {/* Left side - Product Info and Quantity Controls */}
+            <div className="flex flex-col gap-2">
+              {/* Product Name */}
+              <div className="flex items-center gap-2">
+                <h3 className="font-medium text-black text-[16px] leading-none">
+                  {translateMenuItem(language, item.name)}
+                </h3>
+                {item.is_vegetarian && (
+                  <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                    {getTranslation(language, 'vegetarian').charAt(0)}
+                  </span>
+                )}
+              </div>
 
-          {/* Controls - Right */}
-          <div className="flex items-center gap-3 flex-shrink-0">
-            {/* Quantity Controls */}
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-8 h-8 p-0 rounded-full border-red-500 text-red-500 hover:bg-red-50"
-                onClick={handleDecrement}
-                disabled={quantity === 0}
-              >
-                <span className="text-lg font-bold">−</span>
-              </Button>
-              
-              <span className="w-8 text-center font-medium text-lg">
-                {quantity}
-              </span>
-              
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-8 h-8 p-0 rounded-full border-green-500 text-green-500 hover:bg-green-50"
-                onClick={handleIncrement}
-              >
-                <span className="text-lg font-bold">+</span>
-              </Button>
+              {/* Quantity Controls */}
+              <div className="flex items-center rounded-[7px] shadow-sm h-10 w-[120px] overflow-hidden border border-gray-200">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-10 h-10 p-0 rounded-none bg-white hover:bg-gray-100 border-none"
+                  onClick={handleDecrement}
+                  disabled={quantity === 0}
+                >
+                  <span className="text-lg font-bold text-red-500">−</span>
+                </Button>
+                
+                <div className="w-10 h-10 bg-white flex items-center justify-center border-l border-r border-gray-200">
+                  <span className="text-[14px] font-medium text-black">
+                    {quantity}
+                  </span>
+                </div>
+                
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-10 h-10 p-0 rounded-none bg-white hover:bg-gray-100 border-none"
+                  onClick={handleIncrement}
+                >
+                  <span className="text-lg font-bold text-green-500">+</span>
+                </Button>
+              </div>
             </div>
 
-            {/* Info Button */}
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-8 h-8 p-0 rounded-full border-gray-400 text-gray-600 hover:bg-gray-50"
-              onClick={handleInfoClick}
-            >
-              <InfoIcon className="h-4 w-4" />
-            </Button>
+            {/* Right side - Price and Info */}
+            <div className="flex flex-col items-end gap-2">
+              {/* Price */}
+              <p className="font-light text-black text-[16px] leading-none">
+                €{item.price.toFixed(2)}
+              </p>
+
+              {/* Info Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-10 h-10 p-0 rounded bg-white shadow-sm hover:bg-gray-50 border border-gray-100"
+                onClick={handleInfoClick}
+              >
+                <InfoIcon className="h-3.5 w-3.5 text-gray-600" />
+              </Button>
+            </div>
           </div>
         </div>
       </CardContent>
