@@ -4,6 +4,8 @@ import { CategorySection } from '../../components/CategorySection'
 import { CartSummary } from '../../components/CartSummary'
 import { InfoModal } from '../../components/InfoModal'
 import { LanguageSwitcher } from '../../components/LanguageSwitcher'
+import { HamburgerMenu } from '../../components/HamburgerMenu'
+import { ContactPage } from '../../components/ContactPage'
 import { useMenuData } from '../../hooks/useMenuData'
 import { useLanguage } from '../../hooks/useLanguage'
 import { MenuItem } from '../../lib/supabase'
@@ -19,6 +21,8 @@ interface CartItem {
 export const Iphone = (): JSX.Element => {
   const { categories, loading, error, getItemsByCategory, menuItems } = useMenuData()
   const { language, changeLanguage } = useLanguage()
+  const [currentPage, setCurrentPage] = useState<'menu' | 'contact'>('menu')
+  const [orderMode, setOrderMode] = useState(false) // New state for order mode
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
   const [quantities, setQuantities] = useState<Record<number, number>>({})
   const [cartItems, setCartItems] = useState<CartItem[]>([])
@@ -109,8 +113,27 @@ export const Iphone = (): JSX.Element => {
     setActiveCategory(category)
   }
 
-  // Handle scroll to update active category and hide/show category grid
+  const handlePageChange = (page: 'menu' | 'contact') => {
+    setCurrentPage(page)
+    // Reset scroll position when changing pages
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleOrderModeToggle = () => {
+    setOrderMode(!orderMode)
+    
+    // If turning off order mode, clear all quantities and cart
+    if (orderMode) {
+      setQuantities({})
+      setCartItems([])
+      setIsCartOpen(false)
+    }
+  }
+
+  // Handle scroll to update active category and hide/show category grid (only for menu page)
   useEffect(() => {
+    if (currentPage !== 'menu') return
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY
       
@@ -138,7 +161,7 @@ export const Iphone = (): JSX.Element => {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [categories])
+  }, [categories, currentPage])
 
   if (loading) {
     return (
@@ -168,7 +191,7 @@ export const Iphone = (): JSX.Element => {
     )
   }
 
-  if (categories.length === 0) {
+  if (categories.length === 0 && currentPage === 'menu') {
     return (
       <div className="flex flex-col min-h-screen items-center justify-center relative bg-white p-4">
         <div className="text-center max-w-md">
@@ -190,7 +213,7 @@ export const Iphone = (): JSX.Element => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header - Always visible */}
-      <header className="sticky top-0 z-40 bg-gray-900 text-white">
+      <header className="sticky top-0 z-40 text-white" style={{ backgroundColor: 'rgb(27, 26, 26)' }}>
         {/* Main Header Bar */}
         <div className="flex h-[70px] items-center justify-between px-4">
           <img
@@ -206,62 +229,74 @@ export const Iphone = (): JSX.Element => {
               onLanguageChange={changeLanguage}
             />
             
-            {/* Hamburger Menu */}
-            <div className="flex flex-col gap-1">
-              <div className="w-6 h-0.5 bg-white"></div>
-              <div className="w-6 h-0.5 bg-white"></div>
-              <div className="w-6 h-0.5 bg-white"></div>
-            </div>
+            <HamburgerMenu
+              language={language}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+              orderMode={orderMode}
+              onOrderModeToggle={handleOrderModeToggle}
+            />
           </div>
         </div>
         
-        {/* Category Grid Navigation - Conditionally visible with dynamic height */}
-        <div className={`transition-all duration-300 overflow-hidden ${
-          showCategoryGrid ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}>
-          <CategoryGrid
-            categories={categories}
-            language={language}
-            activeCategory={activeCategory}
-            onCategoryClick={scrollToCategory}
-          />
-        </div>
+        {/* Category Grid Navigation - Only show on menu page */}
+        {currentPage === 'menu' && (
+          <div className={`transition-all duration-300 overflow-hidden ${
+            showCategoryGrid ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}>
+            <CategoryGrid
+              categories={categories}
+              language={language}
+              activeCategory={activeCategory}
+              onCategoryClick={scrollToCategory}
+            />
+          </div>
+        )}
       </header>
 
-      {/* Main Content - Add top padding to prevent overlap */}
-      <main className="px-4 pb-32 pt-4">
-        {categories.map((category) => (
-          <CategorySection
-            key={category}
-            category={category}
-            language={language}
-            items={getItemsByCategory(category)}
-            quantities={quantities}
-            onQuantityChange={handleQuantityChange}
-            onInfoClick={handleInfoClick}
-          />
-        ))}
-      </main>
+      {/* Main Content */}
+      {currentPage === 'contact' ? (
+        <ContactPage language={language} />
+      ) : (
+        <main className="px-4 pb-32 pt-4">
+          {categories.map((category) => (
+            <CategorySection
+              key={category}
+              category={category}
+              language={language}
+              items={getItemsByCategory(category)}
+              quantities={quantities}
+              orderMode={orderMode}
+              onQuantityChange={handleQuantityChange}
+              onInfoClick={handleInfoClick}
+            />
+          ))}
+        </main>
+      )}
 
-      {/* Cart Summary - Fixed Footer */}
-      <CartSummary
-        items={cartItems}
-        language={language}
-        isOpen={isCartOpen}
-        onToggle={() => setIsCartOpen(!isCartOpen)}
-        onQuantityChange={handleCartQuantityChange}
-      />
+      {/* Cart Summary - Only show on menu page and when order mode is active */}
+      {currentPage === 'menu' && orderMode && (
+        <CartSummary
+          items={cartItems}
+          language={language}
+          isOpen={isCartOpen}
+          onToggle={() => setIsCartOpen(!isCartOpen)}
+          onQuantityChange={handleCartQuantityChange}
+        />
+      )}
 
-      {/* Info Modal */}
-      <InfoModal
-        item={selectedItem}
-        language={language}
-        isOpen={isInfoModalOpen}
-        onClose={() => {
-          setIsInfoModalOpen(false)
-          setSelectedItem(null)
-        }}
-      />
+      {/* Info Modal - Only show on menu page */}
+      {currentPage === 'menu' && (
+        <InfoModal
+          item={selectedItem}
+          language={language}
+          isOpen={isInfoModalOpen}
+          onClose={() => {
+            setIsInfoModalOpen(false)
+            setSelectedItem(null)
+          }}
+        />
+      )}
     </div>
   )
 }

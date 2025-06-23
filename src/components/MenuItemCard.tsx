@@ -9,6 +9,7 @@ interface MenuItemCardProps {
   item: MenuItem
   quantity: number
   language: Language
+  orderMode: boolean
   onQuantityChange: (item: MenuItem, quantity: number) => void
   onInfoClick?: (item: MenuItem) => void
 }
@@ -17,6 +18,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
   item, 
   quantity,
   language,
+  orderMode,
   onQuantityChange,
   onInfoClick
 }) => {
@@ -67,33 +69,35 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
                 )}
               </div>
 
-              {/* Quantity Controls */}
-              <div className="flex items-center rounded-[7px] shadow-sm h-10 w-[120px] overflow-hidden border border-gray-200">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-10 h-10 p-0 rounded-none bg-white hover:bg-gray-100 border-none"
-                  onClick={handleDecrement}
-                  disabled={quantity === 0}
-                >
-                  <span className="text-lg font-bold text-red-500">−</span>
-                </Button>
-                
-                <div className="w-10 h-10 bg-white flex items-center justify-center border-l border-r border-gray-200">
-                  <span className="text-[14px] font-medium text-black">
-                    {quantity}
-                  </span>
+              {/* Quantity Controls - Only show when order mode is active */}
+              {orderMode && (
+                <div className="flex items-center rounded-[7px] shadow-sm h-10 w-[120px] overflow-hidden border border-gray-200">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-10 h-10 p-0 rounded-none bg-white hover:bg-gray-100 border-none"
+                    onClick={handleDecrement}
+                    disabled={quantity === 0}
+                  >
+                    <span className="text-lg font-bold text-red-500">−</span>
+                  </Button>
+                  
+                  <div className="w-10 h-10 bg-white flex items-center justify-center border-l border-r border-gray-200">
+                    <span className="text-[14px] font-medium text-black">
+                      {quantity}
+                    </span>
+                  </div>
+                  
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-10 h-10 p-0 rounded-none bg-white hover:bg-gray-100 border-none"
+                    onClick={handleIncrement}
+                  >
+                    <span className="text-lg font-bold text-green-500">+</span>
+                  </Button>
                 </div>
-                
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-10 h-10 p-0 rounded-none bg-white hover:bg-gray-100 border-none"
-                  onClick={handleIncrement}
-                >
-                  <span className="text-lg font-bold text-green-500">+</span>
-                </Button>
-              </div>
+              )}
             </div>
 
             {/* Right side - Price and Info */}

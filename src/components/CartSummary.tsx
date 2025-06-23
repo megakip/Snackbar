@@ -152,7 +152,7 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
           </div>
         )}
 
-        {/* Bottom Bar with Cart Button - Always visible */}
+        {/* Bottom Bar with Cart Button - Always has white background */}
         <div className="bg-white border-t border-gray-200 p-4">
           <button
             onClick={onToggle}

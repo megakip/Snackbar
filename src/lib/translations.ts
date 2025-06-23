@@ -5,6 +5,18 @@ export const translations = {
     // Header
     menu: 'Menu',
     
+    // Navigation
+    navigation: 'Navigatie',
+    menuPage: 'Menukaart',
+    contactPage: 'Contact',
+    
+    // Order Mode Settings
+    orderSettings: 'Bestel Instellingen',
+    orderModeTitle: 'Bestel Modus',
+    orderModeDescription: 'Activeer om items toe te voegen',
+    orderModeActive: 'Bestel modus is actief - je kunt nu items toevoegen',
+    orderModeInactive: 'Bestel modus is uitgeschakeld - alleen menu bekijken',
+    
     // Categories (these will be translated but database categories remain the same)
     categories: {
       'Patat': 'Patat',
@@ -98,6 +110,28 @@ export const translations = {
     vegetarian: 'Vegetarisch',
     description: 'Beschrijving:',
     
+    // Contact Page
+    contactTitle: 'Contact & Locatie',
+    contactSubtitle: 'Kom langs voor de lekkerste snacks!',
+    ourStory: 'Ons Verhaal',
+    storyText1: 'Welkom bij Snackresto, jouw lokale snackbar waar kwaliteit en smaak centraal staan. Al meer dan 15 jaar serveren wij de lekkerste patat, snacks en broodjes in de buurt.',
+    storyText2: 'Onze verse ingrediënten en traditionele bereidingswijze zorgen ervoor dat elke hap een smaakervaring is. Van klassieke patat speciaal tot onze huisgemaakte kroket - bij ons vind je altijd iets lekkers!',
+    contactInfo: 'Contactgegevens',
+    address: 'Adres',
+    phone: 'Telefoon',
+    email: 'E-mail',
+    openingHours: 'Openingstijden',
+    location: 'Locatie',
+    mapDescription: 'Klik op de kaart voor routebeschrijving',
+    monday: 'Maandag',
+    tuesday: 'Dinsdag',
+    wednesday: 'Woensdag',
+    thursday: 'Donderdag',
+    friday: 'Vrijdag',
+    saturday: 'Zaterdag',
+    sunday: 'Zondag',
+    closed: 'Gesloten',
+    
     // Loading and errors
     loading: 'Menu wordt geladen...',
     error: 'Fout bij laden van menu',
@@ -110,6 +144,18 @@ export const translations = {
   de: {
     // Header
     menu: 'Menü',
+    
+    // Navigation
+    navigation: 'Navigation',
+    menuPage: 'Speisekarte',
+    contactPage: 'Kontakt',
+    
+    // Order Mode Settings
+    orderSettings: 'Bestelleinstellungen',
+    orderModeTitle: 'Bestellmodus',
+    orderModeDescription: 'Aktivieren um Artikel hinzuzufügen',
+    orderModeActive: 'Bestellmodus ist aktiv - Sie können jetzt Artikel hinzufügen',
+    orderModeInactive: 'Bestellmodus ist deaktiviert - nur Menü ansehen',
     
     // Categories
     categories: {
@@ -204,6 +250,28 @@ export const translations = {
     vegetarian: 'Vegetarisch',
     description: 'Beschreibung:',
     
+    // Contact Page
+    contactTitle: 'Kontakt & Standort',
+    contactSubtitle: 'Besuchen Sie uns für die besten Snacks!',
+    ourStory: 'Unsere Geschichte',
+    storyText1: 'Willkommen bei Snackresto, Ihrer lokalen Snackbar, wo Qualität und Geschmack im Mittelpunkt stehen. Seit über 15 Jahren servieren wir die leckersten Pommes, Snacks und Brötchen in der Nachbarschaft.',
+    storyText2: 'Unsere frischen Zutaten und traditionelle Zubereitungsweise sorgen dafür, dass jeder Bissen ein Geschmackserlebnis ist. Von klassischen Pommes spezial bis zu unserer hausgemachten Krokette - bei uns finden Sie immer etwas Leckeres!',
+    contactInfo: 'Kontaktdaten',
+    address: 'Adresse',
+    phone: 'Telefon',
+    email: 'E-Mail',
+    openingHours: 'Öffnungszeiten',
+    location: 'Standort',
+    mapDescription: 'Klicken Sie auf die Karte für Wegbeschreibung',
+    monday: 'Montag',
+    tuesday: 'Dienstag',
+    wednesday: 'Mittwoch',
+    thursday: 'Donnerstag',
+    friday: 'Freitag',
+    saturday: 'Samstag',
+    sunday: 'Sonntag',
+    closed: 'Geschlossen',
+    
     // Loading and errors
     loading: 'Menü wird geladen...',
     error: 'Fehler beim Laden des Menüs',
@@ -216,6 +284,18 @@ export const translations = {
   en: {
     // Header
     menu: 'Menu',
+    
+    // Navigation
+    navigation: 'Navigation',
+    menuPage: 'Menu',
+    contactPage: 'Contact',
+    
+    // Order Mode Settings
+    orderSettings: 'Order Settings',
+    orderModeTitle: 'Order Mode',
+    orderModeDescription: 'Activate to add items',
+    orderModeActive: 'Order mode is active - you can now add items',
+    orderModeInactive: 'Order mode is disabled - viewing menu only',
     
     // Categories
     categories: {
@@ -309,6 +389,28 @@ export const translations = {
     itemNumber: 'Item Number:',
     vegetarian: 'Vegetarian',
     description: 'Description:',
+    
+    // Contact Page
+    contactTitle: 'Contact & Location',
+    contactSubtitle: 'Visit us for the best snacks!',
+    ourStory: 'Our Story',
+    storyText1: 'Welcome to Snackresto, your local snack bar where quality and taste are central. For over 15 years we have been serving the tastiest chips, snacks and sandwiches in the neighborhood.',
+    storyText2: 'Our fresh ingredients and traditional preparation methods ensure that every bite is a taste experience. From classic special chips to our homemade croquette - you will always find something delicious with us!',
+    contactInfo: 'Contact Information',
+    address: 'Address',
+    phone: 'Phone',
+    email: 'Email',
+    openingHours: 'Opening Hours',
+    location: 'Location',
+    mapDescription: 'Click on the map for directions',
+    monday: 'Monday',
+    tuesday: 'Tuesday',
+    wednesday: 'Wednesday',
+    thursday: 'Thursday',
+    friday: 'Friday',
+    saturday: 'Saturday',
+    sunday: 'Sunday',
+    closed: 'Closed',
     
     // Loading and errors
     loading: 'Loading menu...',

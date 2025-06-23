@@ -8,6 +8,7 @@ interface CategorySectionProps {
   language: Language
   items: MenuItem[]
   quantities: Record<number, number>
+  orderMode: boolean
   onQuantityChange: (item: MenuItem, quantity: number) => void
   onInfoClick?: (item: MenuItem) => void
 }
@@ -17,6 +18,7 @@ export const CategorySection: React.FC<CategorySectionProps> = ({
   language,
   items, 
   quantities,
+  orderMode,
   onQuantityChange,
   onInfoClick
 }) => {
@@ -104,6 +106,7 @@ export const CategorySection: React.FC<CategorySectionProps> = ({
               item={item}
               language={language}
               quantity={quantities[item.id] || 0}
+              orderMode={orderMode}
               onQuantityChange={onQuantityChange}
               onInfoClick={onInfoClick}
             />
